@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_blue"
+    tools:context=".ui.fragments.InitialFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appTitleHorizontalGuideline"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="@dimen/_45dp"
+            android:layout_height="@dimen/_45dp"
+            android:src="@drawable/ic_run_icon"
+            app:tint="@color/red"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:textColor="@color/green"
+            android:textSize="@dimen/_30sp"
+            android:textStyle="bold|italic" />
+
+        <ImageView
+            android:layout_width="@dimen/_45dp"
+            android:layout_height="@dimen/_45dp"
+            android:rotationY="@dimen/_180"
+            android:src="@drawable/ic_run_icon"
+            app:tint="@color/red"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/helper"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/_20sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/helperTextViewHorizontalGuideline" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="@dimen/_1"
+        app:layout_constraintBottom_toTopOf="@+id/nameAndWeightEditTextsBottomHorizontalGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameAndWeightEditTextsTopHorizontalGuideline">
+
+        <EditText
+            android:id="@+id/nameEditText"
+            style="@style/NameWeightEditTextsStyle"
+            android:drawableStart="@drawable/name_icon_background"
+            android:hint="@string/nameEditTextHint"
+            android:inputType="textAutoCorrect"
+            android:importantForAutofill="no" />
+
+        <View
+            android:layout_width="@dimen/_10dp"
+            android:layout_height="0dp" />
+
+        <EditText
+            android:id="@+id/weightEditText"
+            style="@style/NameWeightEditTextsStyle"
+            android:drawableStart="@drawable/weight_icon_background"
+            android:hint="@string/weightEditTextHint"
+            android:inputType="numberDecimal"
+            android:importantForAutofill="no" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/letsGoButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/letsGoButtonText"
+        android:textSize="@dimen/_20sp"
+        android:background="@drawable/lets_go_button_inactive"
+        app:layout_constraintStart_toEndOf="@+id/letsGoButtonStartVerticalGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/letsGoButtonTopHorizontalGuideline"
+        app:layout_constraintEnd_toStartOf="@+id/letsGoButtonEndVerticalGuideline"
+        app:layout_constraintBottom_toTopOf="@+id/letsGoButtonBottomHorizontalGuideline"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/appTitleHorizontalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/helperTextViewHorizontalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/nameAndWeightEditTextsTopHorizontalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.40" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/nameAndWeightEditTextsBottomHorizontalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.46" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/letsGoButtonTopHorizontalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.80" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/letsGoButtonBottomHorizontalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.87" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/letsGoButtonStartVerticalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/letsGoButtonEndVerticalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.67" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

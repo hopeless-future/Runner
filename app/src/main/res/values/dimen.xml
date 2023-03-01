@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="_30sp">50sp</dimen>
+    <dimen name="_20sp">20sp</dimen>
+    <dimen name="_15sp">15sp</dimen>
+
+    <dimen name="_45dp">45dp</dimen>
+    <dimen name="_20dp">20dp</dimen>
+    <dimen name="_1dp">1dp</dimen>
+    <dimen name="_5dp">5dp</dimen>
+    <dimen name="_10dp">10dp</dimen>
+
+    <dimen name="_180">180</dimen>
+    <dimen name="_1">1</dimen>
+
+    <dimen name="_0.45">0.45</dimen>
+
+    <fraction name="_100">100%</fraction>
+    <fraction name="_0">0%</fraction>
+    <fraction name="_minus100">-100%</fraction>
+
+    <integer name="_400">400</integer>
+
+</resources>
