@@ -26,7 +26,7 @@
         android:background="@color/red"
         app:itemRippleColor="@color/yellow"
         app:labelVisibilityMode="unlabeled"
-        app:itemIconSize="35dp"
+        app:itemIconSize="@dimen/_35dp"
         app:itemIconTint="@drawable/bottom_navigation_item_selector"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -10,6 +10,7 @@
     <dimen name="_1dp">1dp</dimen>
     <dimen name="_5dp">5dp</dimen>
     <dimen name="_10dp">10dp</dimen>
+    <dimen name="_35dp">35dp</dimen>
 
     <dimen name="_180">180</dimen>
     <dimen name="_1">1</dimen>

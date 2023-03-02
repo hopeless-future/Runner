@@ -1,47 +1,45 @@
 package com.tracker.runner.viewmodels
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tracker.runner.repositories.initial.InitialRepository
-import com.tracker.runner.utils.validation.UserValidationState
-import com.tracker.runner.utils.validation.ValidationStatus
-import com.tracker.runner.utils.validation.checkValidationName
-import com.tracker.runner.utils.validation.checkValidationWeight
+import com.tracker.runner.utils.validation.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class InitialViewModel @Inject constructor(private val initialRepository: InitialRepository): ViewModel() {
 
-    private val _userValidationFlow: MutableSharedFlow<UserValidationState> = MutableSharedFlow()
-    val userValidationFlow = _userValidationFlow.asSharedFlow()
+    private val _nameValidation: MutableLiveData<NameValidationState> = MutableLiveData()
+    val nameValidation: LiveData<NameValidationState> = _nameValidation
 
-    private val _navigationFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val navigationFlow = _navigationFlow.asStateFlow()
+    private val _weightValidation: MutableLiveData<WeightValidationState> = MutableLiveData()
+    val weightValidation: LiveData<WeightValidationState> = _weightValidation
 
-    fun saveUserInfo(context: Context, name: String, weight: String) {
-        if (isCorrectedEditTextsInput(name, weight)) {
-            initialRepository.saveUserInfo(context, name, weight)
-            _navigationFlow.value = true
-        }
-        else {
-            viewModelScope.launch(Dispatchers.IO) {
-                val userValidationState = UserValidationState(checkValidationName(name), checkValidationWeight(weight))
-                _userValidationFlow.emit(userValidationState)
-            }
+    fun checkNameValidation(name: String) {
+        when (checkValidationName(name)) {
+            is ValidationStatus.Success -> _nameValidation.value = NameValidationState(ValidationStatus.Success, name)
+            is ValidationStatus.Error -> _nameValidation.value = NameValidationState(checkValidationName(name), name)
+            else -> _nameValidation.value = NameValidationState(ValidationStatus.Undefined, null)
         }
     }
 
-    private fun isCorrectedEditTextsInput(name: String, weight: String): Boolean {
-        val nameValidationStatus = checkValidationName(name)
-        val weightValidationStatus = checkValidationWeight(weight)
-        return nameValidationStatus is ValidationStatus.Success && weightValidationStatus is ValidationStatus.Success
+    fun checkWeightValidation(weight: String) {
+        when (checkValidationWeight(weight)) {
+            is ValidationStatus.Success -> _weightValidation.value = WeightValidationState(ValidationStatus.Success, weight)
+            is ValidationStatus.Error -> _weightValidation.value = WeightValidationState(checkValidationWeight(weight), weight)
+            else -> _weightValidation.value = WeightValidationState(ValidationStatus.Undefined, null)
+        }
+    }
+
+    fun saveUserInfo(context: Context, name: String, weight: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            initialRepository.saveUserInfo(context, name, weight)
+        }
     }
 }

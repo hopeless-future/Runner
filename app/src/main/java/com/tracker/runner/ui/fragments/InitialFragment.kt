@@ -1,21 +1,21 @@
 package com.tracker.runner.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import com.tracker.runner.R
 import com.tracker.runner.databinding.FragmentInitialBinding
 import com.tracker.runner.utils.validation.ValidationStatus
 import com.tracker.runner.utils.navigateToAnotherFragment
 import com.tracker.runner.viewmodels.InitialViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class InitialFragment : Fragment() {
@@ -32,43 +32,61 @@ class InitialFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        saveUser()
-        observeUserNavigationFlow()
-        observeUserValidationFlow()
+        handleValidationStatus()
+        observeNameAndWeightValidationState()
     }
 
-    private fun saveUser() {
-        binding.letsGoButton.setOnClickListener {
-            val name = binding.nameEditText.text.toString()
-            val weight = binding.weightEditText.text.toString()
-            initialViewModel.saveUserInfo(requireContext(), name, weight)
-        }
-    }
-
-    private fun observeUserNavigationFlow() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            initialViewModel.navigationFlow.flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED).collect { isNavigateToAnotherFragment ->
-                when (isNavigateToAnotherFragment) {
-                    true -> navigateToAnotherFragment(R.id.action_initialFragment_to_mainFragment)
-                    else -> return@collect
-                }
+    private fun handleValidationStatus() {
+        binding.apply {
+            nameEditText.addTextChangedListener { nameEditable ->
+                nameEditable?.let { initialViewModel.checkNameValidation(it.toString()) }
+            }
+            weightEditText.addTextChangedListener { weightEditable ->
+                weightEditable?.let { initialViewModel.checkWeightValidation(it.toString()) }
             }
         }
     }
 
-    private fun observeUserValidationFlow() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            initialViewModel.userValidationFlow.flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED).collect { userValidationState ->
-                if (userValidationState.name is ValidationStatus.Error) {
-                    binding.nameEditText.apply {
-                        requestFocus()
-                        error = userValidationState.name.errorMessage
+    private fun saveUserToSharedPreferencesAndNavigateToMainFragment(context: Context, nameInput: String, weightInput: String) {
+        binding.letsGoButton.setOnClickListener {
+            initialViewModel.saveUserInfo(context, nameInput, weightInput)
+            navigateToAnotherFragment(R.id.action_initialFragment_to_mainFragment)
+        }
+    }
+
+    private fun setEnabledLetsGoButton() {
+        binding.letsGoButton.apply {
+            isEnabled = true
+            background = ResourcesCompat.getDrawable(resources, R.drawable.lets_go_button_active, null)
+        }
+    }
+
+    private fun setDisabledLetsGoButton() {
+        binding.letsGoButton.apply {
+            isEnabled = false
+            background = ResourcesCompat.getDrawable(resources, R.drawable.lets_go_button_inactive, null)
+        }
+    }
+
+    private fun showErrorMessageEditText(editText: EditText, message: String) {
+        editText.apply { error = message }
+    }
+
+    private fun observeNameAndWeightValidationState() {
+        initialViewModel.apply {
+            nameValidation.observe(viewLifecycleOwner) { nameValidationState ->
+                weightValidation.observe(viewLifecycleOwner) { weightValidationState ->
+                    if (nameValidationState.name is ValidationStatus.Error) {
+                        showErrorMessageEditText(binding.nameEditText, nameValidationState.name.errorMessage)
+                        setDisabledLetsGoButton()
                     }
-                }
-                if (userValidationState.weight is ValidationStatus.Error) {
-                    binding.weightEditText.apply {
-                        requestFocus()
-                        error = userValidationState.weight.errorMessage
+                    else if (weightValidationState.weight is ValidationStatus.Error) {
+                        showErrorMessageEditText(binding.weightEditText, weightValidationState.weight.errorMessage)
+                        setDisabledLetsGoButton()
+                    }
+                    else if (nameValidationState.name is ValidationStatus.Success && weightValidationState.weight is ValidationStatus.Success) {
+                        setEnabledLetsGoButton()
+                        saveUserToSharedPreferencesAndNavigateToMainFragment(requireContext(), nameValidationState.nameInput!!, weightValidationState.weightInput!!)
                     }
                 }
             }
