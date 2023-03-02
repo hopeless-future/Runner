@@ -42,6 +42,16 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:src="@drawable/runner_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/runnerImageTopHorizontalGuideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/runnerImageBottomHorizontalGuideline"
+        tools:ignore="ContentDescription" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,8 +79,8 @@
             style="@style/NameWeightEditTextsStyle"
             android:drawableStart="@drawable/name_icon_background"
             android:hint="@string/nameEditTextHint"
-            android:inputType="textAutoCorrect"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            android:inputType="textAutoCorrect" />
 
         <View
             android:layout_width="@dimen/_10dp"
@@ -81,8 +91,8 @@
             style="@style/NameWeightEditTextsStyle"
             android:drawableStart="@drawable/weight_icon_background"
             android:hint="@string/weightEditTextHint"
-            android:inputType="numberDecimal"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal" />
 
     </LinearLayout>
 
@@ -90,55 +100,55 @@
         android:id="@+id/letsGoButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/lets_go_button_inactive"
         android:text="@string/letsGoButtonText"
         android:textSize="@dimen/_20sp"
-        android:background="@drawable/lets_go_button_inactive"
-        app:layout_constraintStart_toEndOf="@+id/letsGoButtonStartVerticalGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/letsGoButtonTopHorizontalGuideline"
+        app:layout_constraintBottom_toTopOf="@+id/letsGoButtonBottomHorizontalGuideline"
         app:layout_constraintEnd_toStartOf="@+id/letsGoButtonEndVerticalGuideline"
-        app:layout_constraintBottom_toTopOf="@+id/letsGoButtonBottomHorizontalGuideline"/>
+        app:layout_constraintStart_toEndOf="@+id/letsGoButtonStartVerticalGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/letsGoButtonTopHorizontalGuideline" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/appTitleHorizontalGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/helperTextViewHorizontalGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_percent="0.45" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/nameAndWeightEditTextsTopHorizontalGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.40" />
+        app:layout_constraintGuide_percent="0.50" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/nameAndWeightEditTextsBottomHorizontalGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.46" />
+        app:layout_constraintGuide_percent="0.56" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/letsGoButtonTopHorizontalGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.80" />
+        app:layout_constraintGuide_percent="0.83" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/letsGoButtonBottomHorizontalGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.87" />
+        app:layout_constraintGuide_percent="0.90" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/letsGoButtonStartVerticalGuideline"
@@ -153,5 +163,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.67" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/runnerImageTopHorizontalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.17" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/runnerImageBottomHorizontalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.40" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

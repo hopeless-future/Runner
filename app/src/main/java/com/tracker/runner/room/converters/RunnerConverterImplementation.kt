@@ -2,9 +2,11 @@ package com.tracker.runner.room.converters
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import java.io.ByteArrayOutputStream
 
+@ProvidedTypeConverter
 class RunnerConverterImplementation: RunnerConverter {
 
     @TypeConverter

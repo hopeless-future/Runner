@@ -3,13 +3,15 @@ package com.tracker.runner.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.tracker.runner.R
 import com.tracker.runner.databinding.ActivityMainBinding
+import com.tracker.runner.utils.checkFirstLaunchApp
+import com.tracker.runner.utils.navigateToAnotherFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,12 +22,25 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupNavHostFragment()
         setupNavController()
         setupBottomNavigationViewWithNavController()
         handleBottomNavigationViewVisibility()
+        checkIsFirstLaunchApp()
+    }
+
+    private fun navigateToMainFragment() {
+        navigateToAnotherFragment(navController, R.id.mainFragment)
+    }
+
+    private fun checkIsFirstLaunchApp() {
+        when (checkFirstLaunchApp(this)) {
+            true -> return
+            else -> navigateToMainFragment()
+        }
     }
 
     private fun setupNavHostFragment() {

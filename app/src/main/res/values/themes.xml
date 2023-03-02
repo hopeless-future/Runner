@@ -27,5 +27,12 @@
         <item name="android:paddingStart">@dimen/_5dp</item>
         <item name="android:textCursorDrawable">@color/green</item>
     </style>
+
+    <style name="ThemeForSplashScreen" parent="Theme.SplashScreen">
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/runner_image</item>
+        <item name="postSplashScreenTheme">@style/Theme.Runner</item>
+        <item name="windowSplashScreenBackground">@color/light_blue</item>
+    </style>
     
 </resources>
